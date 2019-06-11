@@ -1,3 +1,5 @@
+//mixin for making responsive breakpoints
+
 // breakpoint mixin
 @mixin breakpoint($mq01: 0, $mq2: false, $maxmin: max-width) {
     @if $mq2 == false {
@@ -44,4 +46,30 @@ html {
 
 p {
     @include font-size-map($paragraph-font-size);
+}
+
+
+//mixin that calculates pixels into rems
+// body font size
+$browser-context: 16;
+
+// function to convert px to em
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem
+}
+
+html{
+    line-height: 1.2;
+    font-size: rem(16);
+}
+
+h1 {
+    // 72px
+    font-size: rem(36);
+}
+
+h2 {
+    // 24px
+
+    font-size: rem(24);
 }
