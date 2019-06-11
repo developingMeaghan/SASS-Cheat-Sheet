@@ -1,0 +1,47 @@
+// breakpoint mixin
+@mixin breakpoint($mq01: 0, $mq2: false, $maxmin: max-width) {
+    @if $mq2 == false {
+        @media ($maxmin: $mq01) {
+            @content;
+        }
+    }
+    @else {
+        @media (min-width: $mq01) and (max-width: $mq2) {
+            @content;
+        }
+    }
+}
+
+// breakpoint variables
+$lg:  117.0rem; // 1170px
+$md:  102.4rem; //1024px
+$sm:  64rem; // 640px;
+$xs:  48rem; //480px;
+
+// responsive font size mixin
+@mixin font-size-map($font-size-map) {
+    @each $breakpoint, $font-size in $font-size-map {
+        @if $breakpoint == null {
+            font-size: $font-size;
+        } @else {
+            @include breakpoint($breakpoint) {
+                font-size: $font-size;
+            }
+        }
+    }
+}
+// font sizes
+
+$html-font-size: (null: 1.6rem, $md: 1.5rem, $sm: 1.4rem, $xs: 1.3rem);
+
+$paragraph-font-size: (null: 1.8rem, $lg: 1.7rem, $md: 1.6rem, $sm: 1.5rem, $xs: 1.4rem);
+
+// html
+
+html {
+    @include font-size-map($html-font-size);
+}
+
+p {
+    @include font-size-map($paragraph-font-size);
+}
